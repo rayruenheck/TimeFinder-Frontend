@@ -1,17 +1,8 @@
 import { useState } from 'react';
+import { DropdownProps } from './interfaces';
 
-// Making Option generic, restricted to string or number
-interface Option<T extends string | number> {
-  value: T;
-  label: string;
-}
 
-interface DropdownProps<T extends string | number> {
-  id: string;
-  options: Option<T>[];
-  value: T | null;  // Adding value to the props interface
-  onChange: (value: T) => void;
-}
+
 
 function Dropdown<T extends string | number>({ id, options, onChange }: DropdownProps<T>) {
   const [isOpen, setIsOpen] = useState(false);

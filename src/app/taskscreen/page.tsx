@@ -1,18 +1,8 @@
 'use client'
 import React, { useState, ChangeEvent } from 'react';
-import Dropdown from '../components/dropdown'; // Import your Dropdown component
+import Dropdown from '../components/dropdown'; 
+import { Option, Task } from '../components/interfaces';
 
-interface Task {
-  name: string;
-  time: string;
-  priority: string;
-  concentration: string;
-}
-
-export interface Option {
-  value: string;  // Ensure type consistency in your options and task model
-  label: string;
-}
 
 const TaskScreen: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([
@@ -21,7 +11,7 @@ const TaskScreen: React.FC = () => {
     { name: '', time: '', priority: '', concentration: '' }
   ]);
 
-  const times: Option[] = [
+  const times: Option<string>[] = [
     { value: '15', label: '15 minutes' },
     { value: '30', label: '30 minutes' },
     { value: '45', label: '45 minutes' },
@@ -30,7 +20,7 @@ const TaskScreen: React.FC = () => {
     { value: '120', label: '2 hours' }
   ];
 
-  // Function to handle task input change
+  
   const handleTaskInputChange = (index: number, field: keyof Task, value: string): void => {
     setTasks(tasks.map((task, i) => (i === index ? { ...task, [field]: value } : task)));
   };

@@ -29,3 +29,23 @@ export interface CustomSession extends Session {
       name?: string;
   }
 }
+
+export interface Option<T extends string | number> {
+  value: T;
+  label: string;
+}
+
+export interface DropdownProps<T extends string | number> {
+  id: string;
+  options: Option<T>[];
+  value: T | null;  
+  onChange: (value: T) => void;
+}
+
+export interface Task {
+  name: string;
+  time: string;
+  priority: string;
+  concentration: string;
+}
+
