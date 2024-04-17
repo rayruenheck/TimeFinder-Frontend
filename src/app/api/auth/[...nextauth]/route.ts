@@ -1,64 +1,27 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+// imports
+import NextAuth from "next-auth"
+
+// importing providers
+
 import GoogleProvider from "next-auth/providers/google";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { CustomJWT, CustomSession } from "@/app/components/interfaces";
-const options: NextAuthOptions = {
+
+const handler = NextAuth({
     providers: [
-      GoogleProvider({
-        clientId: process.env.GOOGLE_CLIENT_ID || '',
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-        authorization: {
-          params: {
-            access_type: 'offline', 
-            prompt: 'consent',       
-          },
-        }
-      }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+          })
     ],
-    session: {
-      strategy: 'jwt'
-    },
     callbacks: {
-      jwt: async ({ token, account, profile }) => {
-        const customToken = token as CustomJWT;
-        if (account) {
-            customToken.accessToken = account.access_token;
-            customToken.refreshToken = account.refresh_token;
-            customToken.idToken = account.id_token;
-            
-        }
-        if (profile) {
-            customToken.email = profile.email;
-            customToken.name = profile.name;
-        }
-        return customToken;
+      jwt: async ({ token, user }) => {
+        return { ...token, ...user };
       },
       session: async ({ session, token }) => {
-        const customSession = session as CustomSession;  // Cast session to your custom type
-        const customToken = token as CustomJWT;  // Cast token to your custom JWT type
+        session.user = token;
+        return session;
+      },
+    },
+    secret: process.env.NEXTAUTH_SECRET
+})
 
-        // Assign token properties to session properties
-        customSession.accessToken = customToken.accessToken;
-        customSession.refreshToken = customToken.refreshToken;
-        customSession.idToken = customToken.idToken;
-        
-
-        if (customToken.email) {
-            customSession.user.email = customToken.email;
-        }
-        if (customToken.name) {
-            customSession.user.name = customToken.name;
-        }
-
-        return customSession;
-      }
-    }
-  };
-
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
-  return await NextAuth(req, res, options);
-}
-
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  return await NextAuth(req, res, options);
-}
+export { handler as GET, handler as POST }

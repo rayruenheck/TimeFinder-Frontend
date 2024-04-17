@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { GoogleOAuthProvider } from '@react-oauth/google'
-import { SessionProvider } from 'next-auth/react';
+import SessionWrapper from "./components/SessionWrapper";
 
 import "./globals.css";
 import Providers from "./components/providers";
@@ -18,11 +18,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <SessionWrapper>
     <html lang="en">
-      <Providers>
       <body className={inter.className}>{children}</body>
-      </Providers>
-     
     </html>
+    </SessionWrapper>
   );
 }
