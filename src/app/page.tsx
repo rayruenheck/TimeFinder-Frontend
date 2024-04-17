@@ -30,7 +30,11 @@ export default function Home() {
 
   // rendering components for not logged in users
   return (
+   
     <div className="w-full h-screen flex flex-col justify-center items-center">
+      <a href="/startscreen">startscreen</a>
+      <a href="/googleconnect">googleconnect</a>
+      <a href="/taskscreen">taskscreen</a>
         <p className="text-2xl mb-2">Not Signed In</p>
         <button className="bg-blue-600 py-2 px-6 rounded-md mb-2" onClick={() => signIn('google')}>Sign in with google</button>
     </div>
