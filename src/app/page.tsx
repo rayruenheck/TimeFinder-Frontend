@@ -10,7 +10,7 @@ export default function Home() {
 
   // checking if sessions exists
   if (session) {
-    // rendering components for logged in users
+    console.log(session.user)
     return (
       <div className="w-full h-screen flex flex-col justify-center items-center">
         <div className="w-44 h-44 relative mb-4">
