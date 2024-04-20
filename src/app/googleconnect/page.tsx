@@ -1,28 +1,44 @@
 "use client"
-import { useSession } from 'next-auth/react'
-import {useState, useEffect} from 'react'
-import { CustomSession } from '../components/interfaces'
+import { signIn, useSession } from 'next-auth/react';
+import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import { CustomSession } from '../components/interfaces';
+
 export default function Page() {
     const { data: session } = useSession();
-    const [sessionState, setSessionState] = useState<CustomSession | null>(null);
 
-    useEffect(() => {
-        if (session) {
-            setSessionState(session as CustomSession); 
-            console.log(session);
-            updateUser(session as CustomSession);
+    const router = useRouter();
+    const updateTasks = useCallback((userData : CustomSession) => {
+        const tasks = localStorage.getItem('tasks');
+        if (tasks) {
+            const tasksApiUrl = 'http://localhost:5000/tasks';
+            fetch(tasksApiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userId: userData.idToken,
+                    tasks: JSON.parse(tasks),
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Tasks updated:', data);
+                router.push('/');
+            })
+            .catch((error) => {
+                console.error('Error updating tasks:', error);
+            });
+        } else {
+            router.push('/');
         }
-    }, [session]);
+    }, [router]);
 
-    function updateUser(userData: CustomSession) {
-        // Define the API endpoint you are using to handle the user data
-        const apiUrl = 'http://localhost:5000/users'; // Change to your actual API URL
+    const updateUser = useCallback((userData: CustomSession) => {
+        const apiUrl = 'http://localhost:5000/users';
 
         fetch(apiUrl, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 email: userData.user?.email,
                 name: userData.user?.name,
@@ -34,14 +50,25 @@ export default function Page() {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Success:', data);
+            console.log('User updated:', data);
+            updateTasks(userData);
         })
         .catch((error) => {
-            console.error('Error:', error);
+            console.error('Error updating user:', error);
         });
-    }
+    }, [updateTasks]);
+
     
-  return (
-    <div>page</div>
-  )
+
+    useEffect(() => {
+        if (session) {
+            updateUser(session as CustomSession);
+        }
+    }, [session, updateUser]);
+
+    return (
+        <div>
+            <button className="bg-blue-600 py-2 px-6 rounded-md mb-2" onClick={() => signIn('google')}>Connect to Google Calendar</button>
+        </div>
+    );
 }

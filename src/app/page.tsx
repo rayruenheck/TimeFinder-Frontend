@@ -1,43 +1,48 @@
 "use client";
 
-// importing necessary functions
-import { useSession, signIn, signOut } from "next-auth/react"
-import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect } from "react";
 
 export default function Home() {
-  // extracting data from usesession as session
-  const { data: session } = useSession()
+  const { data: session, status } = useSession();
+    const router = useRouter();
 
-  // checking if sessions exists
-  if (session) {
-    console.log(session.user)
+    // Define the fetchScheduledTasks function using useCallback to memoize it
+    const fetchScheduledTasks = useCallback(async () => {
+        if (session) {  // Ensure session is available
+            try {
+                const response = await fetch('http://localhost:5000/schedule_tasks', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${session.accessToken}` // Assuming accessToken is part of session
+                    }
+                });
+                const data = await response.json();
+                console.log(data);
+            } catch (error) {
+                console.error('Failed to fetch scheduled tasks:', error);
+            }
+        }
+    }, [session]);  // The function depends on the session, especially session.accessToken
+
+    useEffect(() => {
+        if (status === "authenticated") {
+            fetchScheduledTasks();
+        } else {
+            // Redirect to the Google connect page if the user is not authenticated
+            router.push('/googleconnect');
+        }
+    }, [fetchScheduledTasks, status, router])
     return (
       <div className="w-full h-screen flex flex-col justify-center items-center">
-        <div className="w-44 h-44 relative mb-4">
-        <Image
-          src={session.user?.image as string}
-          fill
-          alt=""
-          className="object-cover rounded-full"
-        />
+        <a href="/startscreen">startscreen</a>
+        <a href="/googleconnect">googleconnect</a>
+        <a href="/taskscreen">taskscreen</a>
+            <h1>Homepage</h1>
+            <p>Welcome to the homepage! Check the console for scheduled tasks or sign in.</p>
         </div>
-        <p className="text-2xl mb-2">Welcome <span className="font-bold">{session.user?.name}</span>. Signed In As</p>
-        <p className="font-bold mb-4">{session.user?.email}</p>
-        <button className="bg-red-600 py-2 px-6 rounded-md" onClick={() => signOut()}>Sign out</button>
-      </div>
     )
-  }
-
-  // rendering components for not logged in users
-  return (
-   
-    <div className="w-full h-screen flex flex-col justify-center items-center">
-      <a href="/startscreen">startscreen</a>
-      <a href="/googleconnect">googleconnect</a>
-      <a href="/taskscreen">taskscreen</a>
-        <p className="text-2xl mb-2">Not Signed In</p>
-        <button className="bg-blue-600 py-2 px-6 rounded-md mb-2" onClick={() => signIn('google')}>Sign in with google</button>
-    </div>
-  )
 
 }

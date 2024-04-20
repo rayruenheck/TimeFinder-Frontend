@@ -1,15 +1,19 @@
 'use client'
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Dropdown from '../components/dropdown'; 
 import { Option, Task } from '../components/interfaces';
 
 
+
 const TaskScreen: React.FC = () => {
+  
   const [tasks, setTasks] = useState<Task[]>([
     { name: '', time: '', priority: '', concentration: '' },
     { name: '', time: '', priority: '', concentration: '' },
     { name: '', time: '', priority: '', concentration: '' }
   ]);
+  const router = useRouter();
 
   const times: Option<string>[] = [
     { value: '15', label: '15 minutes' },
@@ -24,7 +28,15 @@ const TaskScreen: React.FC = () => {
   const handleTaskInputChange = (index: number, field: keyof Task, value: string): void => {
     setTasks(tasks.map((task, i) => (i === index ? { ...task, [field]: value } : task)));
   };
+  
+  const areAllTasksComplete = () => {
+    return tasks.every(task => task.name && task.time && task.priority && task.concentration);
+  }
 
+  const handleSetTask = () => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    router.push("/googleconnect")
+  }
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-4xl font-bold">Time Finder</h1>
@@ -81,7 +93,7 @@ const TaskScreen: React.FC = () => {
           </div>
         </div>
       ))}
-       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 block mx-auto">Next</button>
+       <button onClick={handleSetTask} disabled={!areAllTasksComplete()} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 block mx-auto">Next</button>
     </div>
   );
 };
