@@ -10,25 +10,26 @@ export interface TaskCardProps {
   }
 
 
-export interface CustomJWT extends JWT {
-  accessToken?: string;
-  refreshToken?: string;
-  idToken?: string;
-  accessTokenExpires?: number;
-  email?: string;
-  name?: string;
-}
-
-export interface CustomSession extends Session {
-  accessToken?: string;
-  refreshToken?: string;
-  idToken?: string;
-  accessTokenExpires?: number;
-  user: {
+  export interface CustomJWT extends JWT {
+    accessToken?: string;
+    refreshToken?: string;
+    idToken?: string;
+    accessTokenExpires?: number;
+    email?: string;
+    name?: string;
+    id?: string;
+  }
+  
+  export interface CustomSession extends Session {
+    accessToken?: string;
+    refreshToken?: string;
+    idToken?: string;
+    accessTokenExpires?: number;
+    user: {
       email?: string;
       name?: string;
+    }
   }
-}
 
 export interface Option<T extends string | number> {
   value: T;
