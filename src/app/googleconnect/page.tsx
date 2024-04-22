@@ -23,15 +23,13 @@ export default function Page() {
             .then(response => response.json())
             .then(data => {
                 console.log('Tasks updated:', data);
-                router.push('/');
+                
             })
             .catch((error) => {
                 console.error('Error updating tasks:', error);
             });
-        } else {
-            router.push('/');
-        }
-    }, [router]);
+        } 
+    }, []);
 
     const updateUser = useCallback((userData: CustomSession) => {
         const apiUrl = 'http://localhost:5000/users';
