@@ -48,3 +48,7 @@ export interface Task {
   concentration: string;
 }
 
+export interface ConcentrationTime {
+  start: string
+  end: string
+}
