@@ -68,8 +68,17 @@ export default function Page() {
     }, [session, updateUser]);
 
     return (
-        <div>
-            <button className="bg-blue-600 py-2 px-6 rounded-md mb-2" onClick={() => signIn('google')}>Connect to Google Calendar</button>
-        </div>
+        <div className="container mx-auto p-4 text-center">
+      
+      <img src="/src/images/Progress Bar 2.png" alt="Progress Bar 2" className="mx-auto mb-8" />
+      <img src="/src/images/New event added - TimeFinder.png" alt="Scheduling your tasks" className="mx-auto mb-8" />
+      <h1 className="text-3xl font-bold mb-4">Scheduling your tasks increases the likelihood of completion by 30%</h1>
+      <p className="text-lg text-gray-600 mb-8">TimeFinder will schedule the <strong>right tasks</strong> at the <strong>right times</strong> on your Google Calendar to help you successfully get things done.</p>
+      <button className="bg-blue-600 py-2 px-6 rounded-md mb-2" onClick={() => signIn('google')}>Connect my Google Calendar</button>
+      
+      
+      
+    </div>
+        
     );
 }
