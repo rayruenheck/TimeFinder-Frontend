@@ -25,10 +25,8 @@ export interface TaskCardProps {
     refreshToken?: string;
     idToken?: string;
     accessTokenExpires?: number;
-    user: {
-      email?: string;
-      name?: string;
-    }
+    email?: string;
+    name?: string;
   }
 
 export interface Option<T extends string | number> {

@@ -9,15 +9,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     clientSecret : process.env. AUTH_GOOGLE_SECRET!,
     authorization: {
       params: {
+        scope: ['https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/calendar.events', 'openid','email', 'profile'].join(' '),
         prompt: "consent",
         access_type: "offline",
-        response_type: "code"
+        response_type: "code",
+
       }
     }
   })],
   callbacks: {
     async jwt({ token, account, profile }) {
       const customToken: CustomJWT = token as CustomJWT;
+      
 
       if (account) {
         customToken.accessToken = account.access_token;
@@ -29,6 +32,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         customToken.email = profile.email || null || undefined ;
         customToken.name = profile.name || null || undefined;
       }
+     
       return customToken;
     },
     async session({ session, token }) {
@@ -39,11 +43,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       customSession.refreshToken = customToken.refreshToken;
       customSession.idToken = customToken.idToken;
       customSession.accessTokenExpires = customToken.accessTokenExpires;
-      customSession.user = {
-        ...customSession.user,
-        email: customToken.email ,
-        name: customToken.name 
-      };
+      customSession.email = customToken.email
+      customSession.name = customToken.name
+      
       return customSession;
     }
   }

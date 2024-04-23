@@ -1,4 +1,5 @@
 "use client";
+import ProgressBar from "@ramonak/react-progress-bar"
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -39,6 +40,7 @@ export default function Home() {
     }, [fetchScheduledTasks, status, router, session])
     return (
       <div className="w-full h-screen flex flex-col justify-center items-center">
+        <ProgressBar className="w-[400px]" completed={50} />
         <a href="/startscreen">startscreen</a>
         <a href="/googleconnect">googleconnect</a>
         <a href="/taskscreen">taskscreen</a>

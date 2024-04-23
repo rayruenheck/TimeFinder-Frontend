@@ -6,8 +6,10 @@ import { CustomSession } from '../components/interfaces';
 
 export default function Page() {
     const { data: session } = useSession();
+    
 
     const router = useRouter();
+
     const updateTasks = useCallback((userData : CustomSession) => {
         const tasks = localStorage.getItem('tasks');
         if (tasks) {
@@ -32,14 +34,15 @@ export default function Page() {
     }, []);
 
     const updateUser = useCallback((userData: CustomSession) => {
+        
         const apiUrl = 'http://localhost:5000/users';
 
         fetch(apiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                email: userData.user?.email,
-                name: userData.user?.name,
+                email: userData.email,
+                name: userData.name,
                 accessToken: userData.accessToken,
                 refreshToken: userData.refreshToken,
                 idToken: userData.idToken,
