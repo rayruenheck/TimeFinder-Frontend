@@ -44,8 +44,10 @@ export default function Home() {
         <a href="/startscreen">startscreen</a>
         <a href="/googleconnect">googleconnect</a>
         <a href="/taskscreen">taskscreen</a>
-            <h1>Homepage</h1>
-            <p>Welcome to the homepage! Check the console for scheduled tasks or sign in.</p>
+        
+        <a href="/concentrationselector">concentration selector</a>
+
+            
         </div>
     )
 

@@ -40,11 +40,7 @@ export default function Page() {
     }, [session]);
 
     // Example time slots
-    const timeSlots = [
-        { start: '08:00', end: '11:59' },
-        { start: '12:00', end: '15:59' },
-        { start: '16:00', end: '20:00' }
-    ];
+    
 
     return (
         <div className="container mx-auto p-4">
@@ -58,15 +54,15 @@ export default function Page() {
 
       {/* Concentration Buttons */}
       <div className="flex justify-center mb-8">
-        <div className={`flex items-center justify-center flex-col rounded-lg border border-gray-300 p-4 mr-4 ${selectedConcentration === 'morning' ? 'bg-black text-white' : 'bg-gray-200'}`} onClick={() => handleConcentrationClick('morning')}>
+        <div  className={`flex items-center justify-center flex-col rounded-lg border border-gray-300 p-4 mr-4 ${selectedConcentration === 'morning' ? 'bg-black text-white' : 'bg-gray-200'}`} onClick={() =>{setConcentrationTime({ start: '08:00', end: '11:59' }), handleConcentrationClick('morning')}}>
           <i className="fas fa-sun text-4xl mb-2"></i>
           <span>Morning 8am-12pm</span>
         </div>
-        <div className={`flex items-center justify-center flex-col rounded-lg border border-gray-300 p-4 mx-4 ${selectedConcentration === 'midday' ? 'bg-black text-white' : 'bg-gray-200'}`} onClick={() => handleConcentrationClick('midday')}>
+        <div className={`flex items-center justify-center flex-col rounded-lg border border-gray-300 p-4 mx-4 ${selectedConcentration === 'midday' ? 'bg-black text-white' : 'bg-gray-200'}`} onClick={() =>{setConcentrationTime({ start: '12:00', end: '15:59' }), handleConcentrationClick('midday')}}>
           <i className="fas fa-sun text-4xl mb-2"></i>
           <span>Midday 12pm-4pm</span>
         </div>
-        <div className={`flex items-center justify-center flex-col rounded-lg border border-gray-300 p-4 ml-4 ${selectedConcentration === 'evening' ? 'bg-black text-white' : 'bg-gray-200'}`} onClick={() => handleConcentrationClick('evening')}>
+        <div className={`flex items-center justify-center flex-col rounded-lg border border-gray-300 p-4 ml-4 ${selectedConcentration === 'evening' ? 'bg-black text-white' : 'bg-gray-200'}`} onClick={() => { setConcentrationTime({ start: '16:00', end: '20:00' }),handleConcentrationClick('evening')}}>
           <i className="fas fa-moon text-4xl mb-2"></i>
           <span>Evening 4pm-8pm</span>
         </div>
@@ -75,7 +71,7 @@ export default function Page() {
       {/* Button */}
       <button
         className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full block mx-auto ${selectedConcentration ? '' : 'opacity-50 cursor-not-allowed'}`}
-        
+        onClick={()=>updateUser(session as CustomSession, concentrationTime)}
         disabled={!selectedConcentration}
       >
         Schedule my tasks for tomorrow
