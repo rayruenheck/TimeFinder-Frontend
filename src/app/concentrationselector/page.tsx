@@ -40,11 +40,11 @@ export default function Page() {
     }, [session]);
 
     // Example time slots
-    
+    // <img src="/src/images/Progress Bar 3.png" alt="Progress Bar 3" className="mx-auto mb-8" />
 
     return (
         <div className="container mx-auto p-4">
-      <img src="/src/images/Progress Bar 3.png" alt="Progress Bar 3" className="mx-auto mb-8" />
+      
 
       {/* Title */}
       <h2 className="text-2xl font-bold text-center mb-4">When do you have the highest levels of concentration?</h2>
