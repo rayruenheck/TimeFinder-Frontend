@@ -1,15 +1,21 @@
 "use client"
-import { useState, useEffect } from 'react'
+import { useSession } from 'next-auth/react';
+import { useState, useEffect, useCallback } from 'react'
+import { CustomSession } from '../components/interfaces'
+
 
 export default function Page() {
     const [weeklyTasksCompleted, setWeeklyTasksCompleted] = useState(0);
     const [allTimeTasksCompleted, setAllTimeTasksCompleted] = useState(0);
+    ;
+
+
   
-    // Simulated data fetching or calculation of tasks completed
+    
     useEffect(() => {
-      // Simulate fetching data from an API or calculation
-      const weeklyCount = 50; // Example count for weekly tasks completed
-      const allTimeCount = 500; // Example count for all-time tasks completed
+      
+      const weeklyCount = 50; 
+      const allTimeCount = 500; 
   
       setWeeklyTasksCompleted(weeklyCount);
       setAllTimeTasksCompleted(allTimeCount);
