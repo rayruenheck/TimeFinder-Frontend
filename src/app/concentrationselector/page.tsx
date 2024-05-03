@@ -26,7 +26,7 @@ export default function Page() {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        user_id: userData.idToken,
+                        sub: userData.sub,
                         start: times.start,
                         end: times.end
                     })

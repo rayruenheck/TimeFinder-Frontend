@@ -31,22 +31,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (profile) {
         customToken.email = profile.email || null || undefined ;
         customToken.name = profile.name || null || undefined;
+        customToken.sub = profile.sub || null || undefined;
+
       }
      
       return customToken;
     },
     async session({ session, token }) {
-      const customSession: CustomSession = session as CustomSession;
       const customToken = token as CustomJWT;
 
-      customSession.accessToken = customToken.accessToken;
-      customSession.refreshToken = customToken.refreshToken;
-      customSession.idToken = customToken.idToken;
-      customSession.accessTokenExpires = customToken.accessTokenExpires;
-      customSession.email = customToken.email
-      customSession.name = customToken.name
+      session.accessToken = customToken.accessToken;
+      session.refreshToken = customToken.refreshToken;
+      session.idToken = customToken.idToken;
+      session.accessTokenExpires = customToken.accessTokenExpires;
+      session.email = customToken.email
+      session.name = customToken.name
+      session.sub = customToken.sub
       
-      return customSession;
+      return session;
     }
   }
 })
