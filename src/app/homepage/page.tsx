@@ -2,6 +2,7 @@
 import { useSession } from 'next-auth/react';
 import { useState, useEffect, useCallback } from 'react'
 import { CustomSession } from '../components/interfaces'
+import GoogleCalendar from '../components/googlecalendar';
 
 
 export default function Page() {
@@ -22,6 +23,7 @@ export default function Page() {
     }, []); 
     return (
       <div>
+        <GoogleCalendar/>
         <div>
           <h2>{weeklyTasksCompleted}</h2>
           <p>tasks completed this week</p>

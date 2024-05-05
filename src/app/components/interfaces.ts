@@ -9,6 +9,11 @@ export interface TaskCardProps {
     onClick: (taskId: number) => void;
   }
 
+export interface Event {
+    title: string;
+    start: string; // ISO date string
+    end: string;   // ISO date string
+  }
 
   export interface CustomJWT extends JWT {
     accessToken?: string;
