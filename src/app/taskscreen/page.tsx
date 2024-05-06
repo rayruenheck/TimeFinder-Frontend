@@ -41,7 +41,6 @@ const TaskScreen: React.FC = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-4xl font-bold">Time Finder</h1>
       <p className="text-lg text-gray-600 mb-4">Please create 3 tasks and see how quick it is with TimeFinder.</p> 
-
       {tasks.map((task, index) => (
         <div key={index} className="mt-6 p-4 border rounded-lg">
           <h2 className="text-2xl mb-4 text-center">Task {index + 1}</h2>
