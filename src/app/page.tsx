@@ -11,17 +11,17 @@ export default function Home() {
     const router = useRouter();
 
     // Define the fetchScheduledTasks function using useCallback to memoize it
-    const fetchScheduledTasks = useCallback(async (userData : CustomSession) => {
-        if (session) {  
+    const fetchScheduledTasks = useCallback(async () => {
+        if (session?.accessToken && session?.sub) {  // Check for necessary session parts to exist
             try {
                 const response = await fetch('http://localhost:5000/schedule_tasks', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${session.accessToken}` // Assuming accessToken is part of session
+                        'Authorization': `Bearer ${session?.accessToken}` // Ensuring accessToken is still valid
                     },
                     body: JSON.stringify({
-                        userId: userData.idToken                        
+                        sub: session?.sub // Assuming you store Google's `sub` as userId in the session
                     })
                 });
                 const data = await response.json();
@@ -30,14 +30,13 @@ export default function Home() {
                 console.error('Failed to fetch scheduled tasks:', error);
             }
         }
-    }, [session]);  // The function depends on the session, especially session.accessToken
+    }, [session?.accessToken, session?.sub]);  // The function depends on the session, especially session.accessToken
 
-    useEffect(() => {
-        if (status === "authenticated") {
+    useEffect(() => {        
             
-            fetchScheduledTasks(session as CustomSession);
-        } 
-    }, [fetchScheduledTasks, status, router, session])
+        fetchScheduledTasks();
+    
+    }, [fetchScheduledTasks])
     return (
       <div className="w-full h-screen flex flex-col justify-center items-center">
        

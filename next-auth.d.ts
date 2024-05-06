@@ -5,6 +5,13 @@ declare module 'next-auth' {
    * Adds custom properties to the built-in session object.
    */
   interface Session {
-    accessToken?: {};
+    accessToken?: string;
+    refreshToken?: string;
+    idToken?: string;
+    accessTokenExpires?: number;
+    email?: string;
+    name?: string;
+    sub?: string
   }
 }
+
