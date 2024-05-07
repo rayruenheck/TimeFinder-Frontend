@@ -48,10 +48,13 @@ export interface DropdownProps<T extends string | number> {
 }
 
 export interface Task {
+  id : string
   name: string;
   time: string;
   priority: string;
   concentration: string;
+  isScheduled: boolean
+  isCompleted: boolean
 }
 
 export interface ConcentrationTime {

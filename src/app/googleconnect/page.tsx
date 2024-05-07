@@ -11,6 +11,24 @@ export default function Page() {
 
     const router = useRouter();
 
+    const scheduleNotifications = useCallback(() => {
+        const notificationsApiUrl = 'http://localhost:5000/schedule_notifications';
+        fetch(notificationsApiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                sub: session?.sub  // Ensure you send the necessary data; here, it's assumed 'sub' is sufficient
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Notifications scheduled:', data);
+        })
+        .catch((error) => {
+            console.error('Error scheduling notifications:', error);
+        });
+    }, [session?.sub])
+
     const updateTasks = useCallback(() => {
         const tasks = localStorage.getItem('tasks');
         if (tasks) {
@@ -56,12 +74,13 @@ export default function Page() {
             if (!updateCalled) {
                 updateTasks();
                 setUpdateCalled(true);
+                scheduleNotifications()
             }
         })
         .catch((error) => {
             console.error('Error updating user:', error);
         });
-    }, [session, updateCalled, updateTasks]);
+    }, [session, updateCalled, updateTasks, scheduleNotifications]);
 
     
 
