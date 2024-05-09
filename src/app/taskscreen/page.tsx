@@ -3,16 +3,15 @@ import React, { useState, ChangeEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Dropdown from '../components/dropdown'; 
 import { Option, Task } from '../components/interfaces';
+import { v4 as uuidv4 } from 'uuid'
 
 
 
 const TaskScreen: React.FC = () => {
   
-  const [tasks, setTasks] = useState<Task[]>([
-    { name: '', time: '', priority: '', concentration: '' },
-    { name: '', time: '', priority: '', concentration: '' },
-    { name: '', time: '', priority: '', concentration: '' }
-  ]);
+  const [tasks, setTasks] = useState<Task[]>(new Array(3).fill(null).map(() => ({
+    name: '', time: '', priority: '', concentration: '', isCompleted: false, isScheduled: false, id: uuidv4()
+  })));
   const router = useRouter();
 
   const times: Option<string>[] = [
@@ -26,8 +25,14 @@ const TaskScreen: React.FC = () => {
 
   
   const handleTaskInputChange = (index: number, field: keyof Task, value: string): void => {
-    setTasks(tasks.map((task, i) => (i === index ? { ...task, [field]: value } : task)));
-  };
+    setTasks(tasks.map((task, i) => {
+        if (i === index) {
+            const id = task.id || uuidv4();
+            return { ...task, [field]: value, id };
+        }
+        return task;
+    }));
+}
   
   const areAllTasksComplete = () => {
     return tasks.every(task => task.name && task.time && task.priority && task.concentration);
