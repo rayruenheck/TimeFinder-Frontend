@@ -1,4 +1,9 @@
-"use client"
+
+"use client";
+
+import TodayTask from './TodayTask';
+
+
 import { useSession } from 'next-auth/react';
 import { useState, useEffect, useCallback } from 'react'
 
@@ -7,12 +12,18 @@ import TaskCard from '../components/taskcard';
 import { Task } from '../components/interfaces';
 
 
+
 export default function Page() {
     const { data: session } = useSession();
     const [tasks, setTasks] = useState<Task[]>([])
     const [weeklyTasksCompleted, setWeeklyTasksCompleted] = useState(0);
     const [allTimeTasksCompleted, setAllTimeTasksCompleted] = useState(0);
-    ;
+
+
+    const updateTaskCounters = () => {
+        setWeeklyTasksCompleted(prevCount => prevCount + 1); 
+        setAllTimeTasksCompleted(prevCount => prevCount + 1); 
+    };
 
     useEffect(() => {
       if (session?.sub) {
@@ -30,28 +41,34 @@ export default function Page() {
   const unscheduledTasks = tasks.filter(task => !task.isScheduled);
   const completedTasks = tasks.filter(task => task.isCompleted);
 
-  
-    
+
+    // Simulated data fetching or calculation of tasks completed
     useEffect(() => {
-      
-      const weeklyCount = 50; 
-      const allTimeCount = 500; 
-  
-      setWeeklyTasksCompleted(weeklyCount);
-      setAllTimeTasksCompleted(allTimeCount);
-    }, []); 
+        // Simulate fetching data from an API or calculation
+        const weeklyCount = 50; 
+        const allTimeCount = 500; 
+
+        setWeeklyTasksCompleted(weeklyCount);
+        setAllTimeTasksCompleted(allTimeCount);
+    }, []);
+
     return (
-      <div>
-        <GoogleCalendar/>
         <div>
-          <h2>{weeklyTasksCompleted}</h2>
-          <p>tasks completed this week</p>
+            <div>
+                <h2>{weeklyTasksCompleted}</h2>
+                <p>tasks completed this week</p>
+            </div>
+
+            <div>
+                <h2>{allTimeTasksCompleted}</h2>
+                <p>Tasks completed all time</p>
+            </div>
+
+            {/* Pass the updateTaskCounters function as a prop to the TodaysTasks component */}
+            <TodayTask onUpdateTaskCounters={updateTaskCounters} />
         </div>
-        
-        <div>
-          <h2>{allTimeTasksCompleted}</h2>
-          <p>Tasks completed all time</p>
-        </div>
+
+
         <div>
                 <h2>Scheduled Tasks</h2>
                 {scheduledTasks.map(task => (
@@ -71,5 +88,5 @@ export default function Page() {
                 ))}
             </div>
       </div>
-    )
+)
 }
