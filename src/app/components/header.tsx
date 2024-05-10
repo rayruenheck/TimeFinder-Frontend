@@ -1,8 +1,14 @@
+import Image from "next/image"
 export default function Header() {
   
-    return (
-    <div className=" mt-[60px] ml-5 w-[60px] h-[16px] flex justify-center items-center">
-    <div className="font-bold w-full">Time Finder</div>
-    </div>
+    return (  
+    <Image
+        src="/images/logo.png"
+        alt="Time Finder Logo"
+        width={193}
+        height={60}
+        className="object-contain"
+      />
+    
   )
 }

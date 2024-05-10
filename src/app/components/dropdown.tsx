@@ -1,62 +1,74 @@
 import { useState } from 'react';
+import Image from 'next/image';
 import { DropdownProps } from './interfaces';
 
-
-
-
-function Dropdown<T extends string | number>({ id, options, onChange }: DropdownProps<T>) {
+function Dropdown<T extends string | number>({ id, options, onChange, value }: DropdownProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState<T | null>(null);
+  const [selectedValue, setSelectedValue] = useState<T | null>(value || null);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleDropdown = () => setIsOpen(!isOpen);
 
-  const handleSelectOption = (value: T) => {
-    onChange(value);
-    setSelectedValue(value);
+  const handleSelectOption = (newValue: T) => {
+    onChange(newValue);
+    setSelectedValue(newValue);
     setIsOpen(false);
   };
 
-  const selectedLabel = options.find(option => option.value === selectedValue)?.label || 'Select an option';
+  const selectedLabel = options.find((option) => option.value === selectedValue)?.label || 'Select an option';
+
+  const getOptionClass = (index: number, length: number, selected: boolean) => {
+    let baseClass = 'cursor-pointer select-none relative py-2 pl-3 pr-9';
+    let borderClass = 'border-l-3 border-r-3 border-blackish';
+    let hoverFocusClass = 'hover:bg-green-100 focus:bg-green-100';
+
+    if (index === 0 && index === length - 1) {
+      // Single item
+      borderClass += ' border-t-3 rounded-t-lg rounded-b-lg';
+    } else if (index === 0) {
+      // First item
+      borderClass += ' border-t-3 rounded-t-lg';
+    } else if (index === length - 1) {
+      // Last item
+      borderClass += ' border-b-3 rounded-b-lg';
+    }
+
+    if (selected) {
+      return `${baseClass} ${borderClass} bg-green-100`;
+    } else {
+      return `${baseClass} ${borderClass} ${hoverFocusClass}`;
+    }
+  };
 
   return (
-    <div className="relative">
+    <div className="relative w-full max-w-[361px]">
       <button
         type="button"
         onClick={toggleDropdown}
-        className="inline-flex justify-between w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+        className={`inline-flex justify-between w-full px-3 py-2 text-sm font-medium text-gray-700 bg-whiteish border-2 border-blackish rounded-lg hover:bg-green-100 focus:bg-green-100`}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-labelledby={id}
       >
         <span className="block truncate">{selectedLabel}</span>
-        <svg
-          className="-mr-1 ml-2 h-5 w-5 text-gray-400"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            fillRule="evenodd"
-            d="M10 12a1 1 0 01-.707-.293l-4-4a1 1 0 111.414-1.414L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4A1 1 0 0110 12z"
-            clipRule="evenodd"
-          />
-        </svg>
+        <Image
+          src={isOpen ? '/images/caret-up-sm.png' : '/images/caret-sm.png'}
+          alt="Caret Icon"
+          width={24}
+          height={24}
+        />
       </button>
       {isOpen && (
         <ul
-          className="absolute z-10 w-full mt-1 bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+          className="absolute z-10 w-full mt-1 bg-white shadow-lg rounded-b-lg max-h-56 overflow-auto focus:outline-none sm:text-sm"
           tabIndex={-1}
           role="listbox"
           aria-labelledby={id}
         >
-          {options.map((option) => (
+          {options.map((option, index) => (
             <li
-              key={option.value.toString()} // Using toString() to ensure the key is a string
+              key={option.value.toString()}
               onClick={() => handleSelectOption(option.value)}
-              className="cursor-pointer select-none relative py-2 pl-3 pr-9"
+              className={getOptionClass(index, options.length, selectedValue === option.value)}
               role="option"
               aria-selected={selectedValue === option.value}
             >
@@ -72,3 +84,5 @@ function Dropdown<T extends string | number>({ id, options, onChange }: Dropdown
 }
 
 export default Dropdown;
+
+

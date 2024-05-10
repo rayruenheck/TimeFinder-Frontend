@@ -2,3 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  /* Heading 1 */
+  .text-heading-1 {
+    @apply text-heading-1 uppercase font-gabarito font-bold;
+  }
+
+  /* Heading 2 */
+  .text-heading-2 {
+    @apply text-heading-2 font-gabarito font-bold;
+  }
+
+  /* Heading 3 */
+  .text-heading-3 {
+    @apply text-heading-3 font-gabarito font-bold;
+  }
+
+  /* Heading 4 */
+  .text-heading-4 {
+    @apply text-heading-4 font-gabarito font-bold;
+  }
+
+  /* Subhead 1 */
+  .text-subhead-1 {
+    @apply text-subhead-1 uppercase font-gabarito font-bold;
+  }
+
+  /* Subhead 2 */
+  .text-subhead-2 {
+    @apply text-subhead-2 uppercase font-gabarito font-semibold;
+  }
+
+  /* Body 1 */
+  .text-body-1 {
+    @apply text-body-1 font-lato;
+  }
+
+  /* Body 2 */
+  .text-body-2 {
+    @apply text-body-2 font-lato;
+  }
+
+  /* Body 3 */
+  .text-body-3 {
+    @apply text-body-3 font-lato;
+  }
+
+  /* Body 4 */
+  .text-body-4 {
+    @apply text-body-4 font-lato italic;
+  }
+
+  /* Button 1 */
+  .text-button-1 {
+    @apply text-button-1 font-lato font-bold;
+  }
+
+  /* Button 2 */
+  .text-button-2 {
+    @apply text-button-2 font-lato font-semibold;
+  }
+
+  /* Button 3 */
+  .text-button-3 {
+    @apply text-button-3 font-lato font-semibold underline;
+  }
+
+  /* Button 4 */
+  .text-button-4 {
+    @apply text-button-4 font-lato font-bold;
+  }
+}
