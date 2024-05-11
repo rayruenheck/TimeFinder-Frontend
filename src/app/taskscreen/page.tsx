@@ -1,13 +1,15 @@
 'use client';
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Accordion from '../components/accordion';
 import Dropdown from '../components/dropdown';
 import { Option, Task } from '../components/interfaces';
 import { v4 as uuidv4 } from 'uuid';
 import Header from '../components/header';
+import { useSession } from 'next-auth/react';
 
 const TaskScreen: React.FC = () => {
+  const { data: session } = useSession();
   const initialTasks: Task[] = new Array(3).fill(null).map(() => ({
     name: '',
     time: '',
@@ -18,11 +20,6 @@ const TaskScreen: React.FC = () => {
     id: uuidv4(),
   }));
 
-  const taskLabels: Option<string>[] = [
-    { value: 'task1', label: 'Task 1' },
-    { value: 'task2', label: 'Task 2' },
-    { value: 'task3', label: 'Task 3' },
-  ];
 
   const times: Option<string>[] = [
     { value: '15', label: '15 minutes' },
@@ -64,20 +61,38 @@ const TaskScreen: React.FC = () => {
     return tasks.every((task) => task.name && task.time && task.priority && task.concentration);
   };
 
-  const handleSetTask = () => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    router.push('/googleconnect');
-  };
+  const handleSetTask = useCallback(() => {
+    if (tasks) {
+        const tasksApiUrl = 'http://localhost:5000/tasks';
+        fetch(tasksApiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                sub: session?.sub,
+                tasks: tasks,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Tasks updated:', data);
+            router.push('/concentrationselector')
+            
+        })
+        .catch((error) => {
+            console.error('Error updating tasks:', error);
+        });
+    } 
+}, [session?.sub, tasks, router])
 
   return (
-    <div className="container mx-auto p-4 max-w-[393px]">
+    <div className="w-full flex flex-col justify-center items-center">
       <Header progressBarNumber={2} />
-      <h1 className='text-heading-2 mb-[16px]'>What would you like to get done?</h1>
-      <p className="text-subhead-1 mb-[32px]">List up to 3 tasks you want to complete. Use the concentration level to notate which tasks require more brain power. This will help us match those tasks to your peak productivity time.</p>
+      <h1 className='text-heading-2 mb-[16px] ml-[16px]'>What would you like to get done?</h1>
+      <p className="text-subhead-1 mb-[32px] ml-[16px]">List up to 3 tasks you want to complete. Use the concentration level to notate which tasks require more brain power. This will help us match those tasks to your peak productivity time.</p>
       {tasks.map((task, index) => (
         <Accordion key={task.id} title={`Task ${index + 1}`}>
-          <div className="mb-4 text-center">
-            <label htmlFor={`taskName${index}`} className="ml-3 block truncate uppercase text-blackish font-gabarito text-sm font-semibold leading-normal">
+          <div className="mb-4">
+            <label htmlFor={`taskName${index}`} className="mb-2 block truncate uppercase text-blackish font-gabarito text-sm font-semibold leading-normal">
               What task do you want to do?
             </label>
             <input
@@ -85,13 +100,13 @@ const TaskScreen: React.FC = () => {
               id={`taskName${index}`}
               value={task.name}
               onChange={(e: ChangeEvent<HTMLInputElement>) => handleTaskInputChange(index, 'name', e.target.value)}
-              placeholder="e.g., Laundry"
-              className="w-full max-w-[361px] border-t-2 border-b-2 border-blackish bg-whiteish rounded-lg px-4 py-2 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] focus:outline-none focus:border-blue-500"
+              placeholder="e.g., Go for a walk"
+              className="w-full  border-2 border-blackish bg-whiteish rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
             />
           </div>
           <div className="flex justify-between gap-16 mb-4">
             <div className="flex-1">
-              <label htmlFor={`taskTime${index}`} className="ml-3 block truncate uppercase text-blackish font-gabarito text-sm font-semibold leading-normal">
+              <label htmlFor={`taskTime${index}`} className="mb-2 block truncate uppercase text-blackish font-gabarito text-sm font-semibold leading-normal">
                 Duration
               </label>
               <Dropdown
@@ -103,7 +118,7 @@ const TaskScreen: React.FC = () => {
               />
             </div>
             <div className="flex-1">
-              <label htmlFor={`taskPriority${index}`} className="ml-3 block truncate uppercase text-blackish font-gabarito text-sm font-semibold leading-normal">
+              <label htmlFor={`taskPriority${index}`} className="mb-2 block truncate uppercase text-blackish font-gabarito text-sm font-semibold leading-normal">
                 Priority
               </label>
               <Dropdown
@@ -116,7 +131,7 @@ const TaskScreen: React.FC = () => {
             </div>
           </div>
           <div>
-            <label htmlFor={`taskConcentration${index}`} className="ml-3 block truncate uppercase text-blackish font-gabarito text-sm font-semibold leading-normal">
+            <label htmlFor={`taskConcentration${index}`} className="mb-2 block truncate uppercase text-blackish font-gabarito text-sm font-semibold leading-normal">
               Concentration required
             </label>
             <Dropdown

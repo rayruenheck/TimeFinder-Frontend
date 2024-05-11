@@ -13,13 +13,13 @@ const Accordion: React.FC<AccordionProps> = ({ title, children, defaultOpen = fa
   const toggleAccordion = () => setIsOpen(!isOpen);
 
   return (
-    <div className="w-full max-w-[393px] border-t-2 border-b-2 border-blackish">
+    <div className="w-full border-t-2 border-blackish">
       <button
         type="button"
         onClick={toggleAccordion}
         className={`flex justify-between items-center w-full h-16 px-4 text-left text-h3 font-bold ${
           isOpen ? 'bg-blue-100' : 'bg-whiteish'
-        } hover:bg-blue-100 focus:bg-blue-100`}
+        } outline-none`}
       >
         <span className="text-blackish font-gabarito text-heading-3 font-bold uppercase ">{title}</span>
 
@@ -30,7 +30,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, children, defaultOpen = fa
           height={32}
         />
       </button>
-      {isOpen && <div className="py-8 px-4 bg-blue-100">{children}</div>}
+      {isOpen && <div className="py-8 px-4 bg-blue-100 outline-none">{children}</div>}
     </div>
   );
 };

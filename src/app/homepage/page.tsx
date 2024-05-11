@@ -37,9 +37,9 @@ export default function Page() {
   }, [session?.sub]);
 
   // Filter tasks based on their properties
-  const scheduledTasks = tasks.filter(task => task.isScheduled);
-  const unscheduledTasks = tasks.filter(task => !task.isScheduled);
-  const completedTasks = tasks.filter(task => task.isCompleted);
+  const scheduledTasks = tasks?.filter(task => task.isScheduled);
+  const unscheduledTasks = tasks?.filter(task => !task.isScheduled);
+  const completedTasks = tasks?.filter(task => task.isCompleted);
 
 
     // Simulated data fetching or calculation of tasks completed
@@ -73,19 +73,19 @@ export default function Page() {
 
         <div>
                 <h2>Scheduled Tasks</h2>
-                {scheduledTasks.map(task => (
+                {scheduledTasks?.map(task => (
                     <TaskCard key={task.id} task={task} />  // Render TaskCard for each scheduled task
                 ))}
             </div>
             <div>
                 <h2>Unscheduled Tasks</h2>
-                {unscheduledTasks.map(task => (
+                {unscheduledTasks?.map(task => (
                     <TaskCard key={task.id} task={task} />  // Render TaskCard for each unscheduled task
                 ))}
             </div>
             <div>
                 <h2>Completed Tasks</h2>
-                {completedTasks.map(task => (
+                {completedTasks?.map(task => (
                     <TaskCard key={task.id} task={task} />  // Render TaskCard for each completed task
                 ))}
             </div>

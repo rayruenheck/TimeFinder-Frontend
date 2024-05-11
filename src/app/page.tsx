@@ -12,53 +12,47 @@ export default function Home() {
   const { data: session, status } = useSession();
     const router = useRouter();
 
-    // Define the fetchScheduledTasks function using useCallback to memoize it
-    const fetchScheduledTasks = useCallback(async () => {
-        if (session?.accessToken && session?.sub) {  // Check for necessary session parts to exist
-            try {
-                const response = await fetch('http://localhost:5000/schedule_tasks', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${session?.accessToken}` // Ensuring accessToken is still valid
-                    },
-                    body: JSON.stringify({
-                        sub: session?.sub // Assuming you store Google's `sub` as userId in the session
-                    })
-                });
-                const data = await response.json();
-                console.log(data);
-            } catch (error) {
-                console.error('Failed to fetch scheduled tasks:', error);
-            }
-        }
-    }, [session?.accessToken, session?.sub]);  // The function depends on the session, especially session.accessToken
+    // // Define the fetchScheduledTasks function using useCallback to memoize it
+    // const fetchScheduledTasks = useCallback(async () => {
+    //     if (session?.accessToken && session?.sub) {  // Check for necessary session parts to exist
+    //         try {
+    //             const response = await fetch('http://localhost:5000/schedule_tasks', {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     'Authorization': `Bearer ${session?.accessToken}` // Ensuring accessToken is still valid
+    //                 },
+    //                 body: JSON.stringify({
+    //                     sub: session?.sub // Assuming you store Google's `sub` as userId in the session
+    //                 })
+    //             });
+    //             const data = await response.json();
+    //             console.log(data);
+    //         } catch (error) {
+    //             console.error('Failed to fetch scheduled tasks:', error);
+    //         }
+    //     }
+    // }, [session?.accessToken, session?.sub]);  // The function depends on the session, especially session.accessToken
 
-    useEffect(() => {        
+    // useEffect(() => {        
             
-        fetchScheduledTasks();
+    //     fetchScheduledTasks();
     
-    }, [fetchScheduledTasks])
+    // }, [fetchScheduledTasks])
     return (
-        <div className='container mx-auto p-4 w-[393px]'>
+        <div className='mx-auto p-4 w-[393px]'>
         <Header progressBarNumber={0}/>
-        <div className="flex flex-col items-center justify-center h-screen">
-          
-          {/* <TimeFinderLogo /> */}
-          <h2 className="text-3xl font-bold mb-4">Welcome to Your Time Finder</h2>
-          <p className="text-lg mb-4">
-            Where finding the right time for the right task is done for you.
+        <div className="h-full w-full flex flex-col items-center justify-center text-center">
+        <Image width={300} height={300} src="/images/startscreen pic.png" alt="TimeFinder Image" className="w-64 h-auto mb-4" />
+          <h2 className="text-heading-2 mt-[64px]">Scheduling the right task at the right time for you</h2>
+          <p className="text-subhead-1 mt-[16px]">
+           TimeFinder helps you complete your tasks by scheduling your tasks for you. Matching tasks to open times to your time of peak concentration increasing your succes!
           </p>
-          <Image width={50} height={50} src="/images/TimeFinderImage.jpg" alt="TimeFinder Image" className="w-64 h-auto mb-4" />
-          <p className="text-lg mb-4">
-            Time Finder helps you schedule your tasks to get them done by matching open times to your productivity and peak concentration increasing your success!
-          </p>
-          <button onClick={()=>{router.push('/googleconnect')}} className="button-1">
-           
-          </button>
-          <h3 className="text-xl font-bold mt-4">Already have and account? Sign in here.</h3>
+          <button onClick={()=>{router.push('/googleconnect')}} className="button-1 mt-[40px]">get started</button>
+          <h3 className="button-2 mt-[16px]">Already have and account? Sign in here.</h3>
+          </div>
         </div>
-        </div>
+        
       );
 
 }

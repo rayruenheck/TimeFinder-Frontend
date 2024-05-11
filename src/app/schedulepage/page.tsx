@@ -8,21 +8,21 @@ export default function Page() {
     const [rotationIndex, setRotationIndex] = useState(0);
     const [redirect, setRedirect] = useState(false);
 
-    const { data: session, status } = useSession();
+    const { data: session} = useSession();
     
 
-    // Define the fetchScheduledTasks function using useCallback to memoize it
+    
     const fetchScheduledTasks = useCallback(async () => {
-        if (session?.accessToken && session?.sub) {  // Check for necessary session parts to exist
+        if (session?.accessToken && session?.sub) {  
             try {
                 const response = await fetch('http://localhost:5000/schedule_tasks', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${session?.accessToken}` // Ensuring accessToken is still valid
+                        'Authorization': `Bearer ${session?.accessToken}`
                     },
                     body: JSON.stringify({
-                        sub: session?.sub // Assuming you store Google's `sub` as userId in the session
+                        sub: session?.sub 
                     })
                 });
                 const data = await response.json();

@@ -20,9 +20,13 @@ const TimeOfDayButton: React.FC<TimeOfDayButtonProps> = ({ iconSrc, label, timeR
     }
   );
 
+  const imageClasses = classNames('mb-[8px]', {
+    'invert': isSelected  // Apply a white filter when selected
+  });
+
   return (
     <div className={buttonClasses} onClick={onClick} role="button" tabIndex={0}>
-      <Image src={iconSrc} alt={`${label} icon`} width={24} height={24} className="mb-[8px]" />
+      <Image src={iconSrc} alt={`${label} icon`} width={24} height={24} className={imageClasses} />
       <span className="font-bold">{label}</span>
       <span className="font-bold text-sm">{timeRange}</span>
     </div>
@@ -30,4 +34,3 @@ const TimeOfDayButton: React.FC<TimeOfDayButtonProps> = ({ iconSrc, label, timeR
 };
 
 export default TimeOfDayButton;
-
