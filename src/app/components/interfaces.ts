@@ -45,6 +45,7 @@ export interface DropdownProps<T extends string | number> {
   options: Option<T>[];
   value: T | null;  
   onChange: (value: T) => void;
+  placeholder: string
 }
 
 export interface Task {

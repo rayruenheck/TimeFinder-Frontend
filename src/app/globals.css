@@ -5,71 +5,116 @@
 @layer base {
   /* Heading 1 */
   .text-heading-1 {
-    @apply text-heading-1 uppercase font-gabarito font-bold;
+    @apply text-5xl uppercase font-gabarito font-bold;
   }
 
   /* Heading 2 */
   .text-heading-2 {
-    @apply text-heading-2 font-gabarito font-bold;
+    color: var(--Green-100, #F1FF8D);
+    font-family: 'Gabarito', sans-serif;;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
   }
 
   /* Heading 3 */
   .text-heading-3 {
-    @apply text-heading-3 font-gabarito font-bold;
+    color: #000;
+    font-family: Gabarito;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150% /* 30px */;
+    text-transform: uppercase;
   }
 
   /* Heading 4 */
   .text-heading-4 {
-    @apply text-heading-4 font-gabarito font-bold;
+    @apply text-lg font-gabarito font-bold;
   }
 
   /* Subhead 1 */
   .text-subhead-1 {
-    @apply text-subhead-1 uppercase font-gabarito font-bold;
+    color: var(--Green-100, #F1FF8D);
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px
   }
 
   /* Subhead 2 */
   .text-subhead-2 {
-    @apply text-subhead-2 uppercase font-gabarito font-semibold;
+    @apply text-lg uppercase font-gabarito font-semibold;
   }
 
   /* Body 1 */
   .text-body-1 {
-    @apply text-body-1 font-lato;
+    @apply text-base font-lato;
   }
 
   /* Body 2 */
   .text-body-2 {
-    @apply text-body-2 font-lato;
+    @apply text-sm font-lato;
   }
 
   /* Body 3 */
   .text-body-3 {
-    @apply text-body-3 font-lato;
+    @apply text-xs font-lato;
   }
 
   /* Body 4 */
   .text-body-4 {
-    @apply text-body-4 font-lato italic;
+    @apply text-base font-lato italic;
   }
 
   /* Button 1 */
   .text-button-1 {
-    @apply text-button-1 font-lato font-bold;
+    @apply text-base font-lato font-bold;
   }
 
   /* Button 2 */
   .text-button-2 {
-    @apply text-button-2 font-lato font-semibold;
+    @apply text-sm font-lato font-semibold;
   }
 
   /* Button 3 */
   .text-button-3 {
-    @apply text-button-3 font-lato font-semibold underline;
+    @apply text-sm font-lato font-semibold underline;
   }
 
   /* Button 4 */
   .text-button-4 {
-    @apply text-button-4 font-lato font-bold;
+    @apply text-base font-lato font-bold;
+  }
+}
+
+@layer components {
+  /* General Buttons */
+  .button-1 {
+    display: flex;
+    width: 361px;
+    padding: 16px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 32px;
+    border: 4px solid var(--Blackish, #1C1C1C);
+    background: var(--Whiteish, #F9F5F2);
+    box-shadow: 2px 2px 0px 0px #1C1C1C;
+  }
+
+  .button-1:hover {
+    background-color: var(--Green-100, #F1FF8D);
+  }
+
+  .button-1:active {
+    background-color: var(--Green-500, #C7F46D);
+  }
+
+  .button-1:disabled {
+    @apply opacity-50 cursor-not-allowed border-grey-500;
+    background-color: var(--Whiteish, #F9F5F2);
   }
 }

@@ -17,7 +17,7 @@ export default function Page() {
     const { data: session } = useSession();
     const [tasks, setTasks] = useState<Task[]>([])
     const [weeklyTasksCompleted, setWeeklyTasksCompleted] = useState(0);
-    const [allTimeTasksCompleted, setAllTimeTasksCompleted] = useState(0);
+    const [allTimeTasksCompleted, setAllTimeTasksCompleted] = useState(0);  
 
 
     const updateTaskCounters = () => {
@@ -54,6 +54,8 @@ export default function Page() {
 
     return (
         <div>
+        <div>
+            <GoogleCalendar/>
             <div>
                 <h2>{weeklyTasksCompleted}</h2>
                 <p>tasks completed this week</p>
@@ -88,5 +90,6 @@ export default function Page() {
                 ))}
             </div>
       </div>
+      
 )
 }

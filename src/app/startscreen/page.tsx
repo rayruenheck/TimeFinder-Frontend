@@ -7,8 +7,8 @@ import Header from '../components/header';
 
 const StartScreen: React.FC = () => {
   return (
-    <div className='h-screen w-full'>
-    <Header/>
+    <div className='container mx-auto p-4 w-[393px]'>
+    <Header progressBarNumber={0}/>
     <div className="flex flex-col items-center justify-center h-screen">
       
       {/* <TimeFinderLogo /> */}

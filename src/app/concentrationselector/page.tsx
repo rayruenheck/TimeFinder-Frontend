@@ -3,11 +3,16 @@ import { useSession } from 'next-auth/react';
 import React, { useCallback, useEffect, useState } from 'react';
 import TimeOfDayButton from '../components/timeOfDayButton';
 import { CustomSession, ConcentrationTime } from '../components/interfaces';
+import Header from '../components/header';
+import { useRouter } from 'next/navigation';
+
 
 export default function Page() {
   const { data: session } = useSession();
   const [concentrationTime, setConcentrationTime] = useState<ConcentrationTime>({ start: '', end: '' });
   const [selectedConcentration, setSelectedConcentration] = useState('');
+  const router = useRouter()
+  
 
   const handleConcentrationClick = (concentration: string) => {
     setSelectedConcentration(concentration);
@@ -30,12 +35,13 @@ export default function Page() {
           });
           const data = await response.json();
           console.log(data);
+          router.push('/schedulepage')
         } catch (error) {
           console.error('Failed to fetch scheduled tasks:', error);
         }
       }
     },
-    [session]
+    [session, router]
   );
 
   useEffect(() => {
@@ -48,18 +54,31 @@ export default function Page() {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      {/* Title */}
-      <h2 className="text-2xl font-bold text-center mb-4">When do you have the highest levels of concentration?</h2>
+    <div className="container mx-auto p-4 w-[393px]">
+      <Header progressBarNumber={3}/>
+      <div
+        style={{
+          display: 'flex',
+          width: '393px',
+          padding: '0 16px',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          gap: '16px',
+        }}
+        className="mx-auto mb-8"
+      >
+        {/* Header */}
+        <h2 className="text-heading-2 font-bold">When do you have the highest levels of concentration?</h2>
 
-      {/* Subtext */}
-      <p className="text-lg text-gray-600 text-center mb-6">
-        This is the last bit of data we need to organize your tasks to take advantage of when you are the most productive
-        and likely to be successful!
-      </p>
+        {/* Subheader */}
+        <p className="text-subhead-1 mb[40px]">
+          We want to schedule your tasks that require high concentration during times when you are most productive. All
+          other tasks will be scheduled outside of this time period.
+        </p>
+      </div>
 
       {/* Concentration Buttons */}
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-center mb-[64px]">
         <TimeOfDayButton
           iconSrc="/images/Sun.png"
           label="Morning"
@@ -87,14 +106,12 @@ export default function Page() {
 
       {/* Button */}
       <button
-        className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full block mx-auto ${
-          selectedConcentration ? '' : 'opacity-50 cursor-not-allowed'
-        }`}
-        onClick={() => updateUser(session as CustomSession, concentrationTime)}
-        disabled={!selectedConcentration}
-      >
-        Schedule my tasks for tomorrow
-      </button>
+          className={`button-1 rounded-[32px] ${selectedConcentration ? '' : 'cursor-not-allowed'}`}
+          onClick={() => updateUser(session as CustomSession, concentrationTime)}
+          disabled={!selectedConcentration}
+        >
+          Schedule my tasks for tomorrow
+        </button>
     </div>
   );
 }

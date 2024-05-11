@@ -35,10 +35,10 @@ const TodayTask: React.FC<Props> = ({ onUpdateTaskCounters }) => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-2">Today's Tasks</h2>
+      <h2 className="text-2xl font-bold mb-2">Today&aposs Tasks</h2>
       <p className="text-lg text-gray-600 mb-4">
         Here are your auto-scheduled tasks for today. Feel free to mark them as complete any time during the day. Any
-        task you don’t complete will return to the Task List at the end of the day.
+        task you don&apost complete will return to the Task List at the end of the day.
       </p>
       {tasks.map((task) => (
         <div key={task.id} className="mb-4">

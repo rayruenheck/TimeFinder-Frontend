@@ -2,7 +2,7 @@
 import { signIn, useSession } from 'next-auth/react';
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { CustomSession } from '../components/interfaces';
+
 
 export default function Page() {
     const [updateCalled, setUpdateCalled] = useState(false)

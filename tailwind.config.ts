@@ -8,7 +8,6 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      
       colors: {
         green: {
           300: '#C7F46D',

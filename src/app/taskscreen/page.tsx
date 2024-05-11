@@ -7,7 +7,6 @@ import { Option, Task } from '../components/interfaces';
 import { v4 as uuidv4 } from 'uuid';
 import Header from '../components/header';
 
-
 const TaskScreen: React.FC = () => {
   const initialTasks: Task[] = new Array(3).fill(null).map(() => ({
     name: '',
@@ -72,48 +71,52 @@ const TaskScreen: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4 max-w-[393px]">
-      <Header />
-      <h1 className="text-4xl font-bold mb-4">Time Finder</h1>
-      <p className="text-lg text-gray-600 mb-4">Please create 3 tasks and see how quick it is with TimeFinder.</p>
+      <Header progressBarNumber={2} />
+      <h1 className='text-heading-2 mb-[16px]'>What would you like to get done?</h1>
+      <p className="text-subhead-1 mb-[32px]">List up to 3 tasks you want to complete. Use the concentration level to notate which tasks require more brain power. This will help us match those tasks to your peak productivity time.</p>
       {tasks.map((task, index) => (
         <Accordion key={task.id} title={`Task ${index + 1}`}>
           <div className="mb-4 text-center">
-            <label htmlFor={`taskName${index}`} className="block text-h3 text-center mb-1">
-              Task Name:
+            <label htmlFor={`taskName${index}`} className="ml-3 block truncate uppercase text-blackish font-gabarito text-sm font-semibold leading-normal">
+              What task do you want to do?
             </label>
             <input
               type="text"
               id={`taskName${index}`}
               value={task.name}
               onChange={(e: ChangeEvent<HTMLInputElement>) => handleTaskInputChange(index, 'name', e.target.value)}
-              placeholder="e.g., walk the dog"
-              className="w-full max-w-[361px] border-2 border-blackish rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+              placeholder="e.g., Laundry"
+              className="w-full max-w-[361px] border-t-2 border-b-2 border-blackish bg-whiteish rounded-lg px-4 py-2 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] focus:outline-none focus:border-blue-500"
             />
           </div>
-          <div className="mb-4">
-            <label htmlFor={`taskTime${index}`} className="block text-h3 text-center mb-1">
-              Duration
-            </label>
-            <Dropdown
-              id={`taskTime${index}`}
-              options={times}
-              value={task.time}
-              onChange={(value) => handleTaskInputChange(index, 'time', value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor={`taskPriority${index}`} className="block text-h3 text-center mb-1">
-              Priority
-            </label>
-            <Dropdown
-              id={`taskPriority${index}`}
-              options={priorities}
-              value={task.priority}
-              onChange={(value) => handleTaskInputChange(index, 'priority', value)}
-            />
+          <div className="flex justify-between gap-16 mb-4">
+            <div className="flex-1">
+              <label htmlFor={`taskTime${index}`} className="ml-3 block truncate uppercase text-blackish font-gabarito text-sm font-semibold leading-normal">
+                Duration
+              </label>
+              <Dropdown
+                id={`taskTime${index}`}
+                options={times}
+                value={task.time}
+                onChange={(value) => handleTaskInputChange(index, 'time', value)}
+                placeholder="30 minutes"
+              />
+            </div>
+            <div className="flex-1">
+              <label htmlFor={`taskPriority${index}`} className="ml-3 block truncate uppercase text-blackish font-gabarito text-sm font-semibold leading-normal">
+                Priority
+              </label>
+              <Dropdown
+                id={`taskPriority${index}`}
+                options={priorities}
+                value={task.priority}
+                onChange={(value) => handleTaskInputChange(index, 'priority', value)}
+                placeholder="Low"
+              />
+            </div>
           </div>
           <div>
-            <label htmlFor={`taskConcentration${index}`} className="block text-h3 text-center mb-1">
+            <label htmlFor={`taskConcentration${index}`} className="ml-3 block truncate uppercase text-blackish font-gabarito text-sm font-semibold leading-normal">
               Concentration required
             </label>
             <Dropdown
@@ -121,6 +124,7 @@ const TaskScreen: React.FC = () => {
               options={concentrations}
               value={task.concentration}
               onChange={(value) => handleTaskInputChange(index, 'concentration', value)}
+              placeholder="Low"
             />
           </div>
         </Accordion>
@@ -128,7 +132,7 @@ const TaskScreen: React.FC = () => {
       <button
         onClick={handleSetTask}
         disabled={!areAllTasksComplete()}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 block mx-auto"
+        className="button-1 mt-4 block mx-auto"
       >
         Next
       </button>
