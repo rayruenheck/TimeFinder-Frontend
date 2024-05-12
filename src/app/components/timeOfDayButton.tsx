@@ -21,7 +21,7 @@ const TimeOfDayButton: React.FC<TimeOfDayButtonProps> = ({ iconSrc, label, timeR
   );
 
   const imageClasses = classNames('mb-[8px]', {
-    'invert': isSelected  // Apply a white filter when selected
+    'invert': isSelected  
   });
 
   return (

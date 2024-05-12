@@ -30,7 +30,7 @@ export default function Page() {
     const router = useRouter();
 
     const scheduleNotifications = useCallback(() => {
-        const notificationsApiUrl = 'http://localhost:5000/schedule_notifications';
+        const notificationsApiUrl = 'https://timefinder-backend-2.onrender.com/schedule_notifications';
         fetch(notificationsApiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -48,31 +48,8 @@ export default function Page() {
         });
     }, [session?.sub])
 
-    // const updateTasks = useCallback(() => {
-    //     const tasks = localStorage.getItem('tasks');
-    //     if (tasks) {
-    //         const tasksApiUrl = 'http://localhost:5000/tasks';
-    //         fetch(tasksApiUrl, {
-    //             method: 'POST',
-    //             headers: { 'Content-Type': 'application/json' },
-    //             body: JSON.stringify({
-    //                 sub: session?.sub,
-    //                 tasks: JSON.parse(tasks),
-    //             }),
-    //         })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             console.log('Tasks updated:', data);
-                
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error updating tasks:', error);
-    //         });
-    //     } 
-    // }, [session?.sub]);
-
     const updateUser = useCallback(() => {
-        const apiUrl = 'http://localhost:5000/users';
+        const apiUrl = 'https://timefinder-backend-2.onrender.com/users';
     
         fetch(apiUrl, {
             method: 'POST',
@@ -93,14 +70,14 @@ export default function Page() {
             if (!updateCalled) {
                 setUpdateCalled(true);
                 scheduleNotifications()
-                router.push('/taskscreen')
+                
                 
             }
         })
         .catch((error) => {
             console.error('Error updating user:', error);
         });
-    }, [session, updateCalled, scheduleNotifications,router]);
+    }, [session, updateCalled, scheduleNotifications]);
 
     
 

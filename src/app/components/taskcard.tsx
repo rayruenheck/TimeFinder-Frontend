@@ -10,7 +10,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 
     const handleCheckboxChange = (id: string, isCompleted: boolean) => {
         const newCompletedStatus = !isCompleted;
-        fetch('http://localhost:5000/update-completion', {
+        fetch('https://timefinder-backend-2.onrender.com/update-completion', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

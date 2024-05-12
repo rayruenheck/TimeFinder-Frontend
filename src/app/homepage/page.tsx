@@ -27,7 +27,7 @@ export default function Page() {
 
     useEffect(() => {
       if (session?.sub) {
-          fetch(`http://localhost:5000/get-tasks?sub=${session.sub}`)
+          fetch(`https://timefinder-backend-2.onrender.com/get-tasks?sub=${session.sub}`)
               .then(response => response.json())
               .then(data => {
                   setTasks(data.tasks);

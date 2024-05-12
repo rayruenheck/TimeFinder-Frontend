@@ -15,7 +15,7 @@ export default function Page() {
     const fetchScheduledTasks = useCallback(async () => {
         if (session?.accessToken && session?.sub) {  
             try {
-                const response = await fetch('http://localhost:5000/schedule_tasks', {
+                const response = await fetch('https://timefinder-backend-2.onrender.com/schedule_tasks', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
