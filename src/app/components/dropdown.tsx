@@ -19,7 +19,7 @@ function Dropdown<T extends string | number>({ id, options, onChange, value, pla
 
 
   return (
-    <div className="relative w-full mb-4">
+    <div className="relative w-full">
   <button
     type="button"
     onClick={toggleDropdown}

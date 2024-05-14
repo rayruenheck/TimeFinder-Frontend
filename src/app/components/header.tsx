@@ -13,7 +13,7 @@ export default function Header({ progressBarNumber }: HeaderProps) {
       {/* Logo with justify-start */}
       <div className="flex justify-start w-full">
         <Image
-          src="/images/logo.png"
+          src="/images/1.png"
           alt="Time Finder Logo"
           width={193}
           height={16}

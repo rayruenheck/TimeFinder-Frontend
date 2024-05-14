@@ -70,7 +70,7 @@ export default function Page() {
     return (
       <div className="container mx-auto p-4 w-[393px]">
         <Header progressBarNumber={4} />
-        <div className="flex flex-col items-center gap-4 w-[393px] px-4">
+        <div className="flex flex-col items-center gap-4 w-[393px]">
           <h1 className="text-heading-2 mt-16 mb-4 text-center">Scheduling your tasks for you</h1>
           <p className="text-subhead-1">This will take less than 5 seconds.</p>
         </div>

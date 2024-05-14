@@ -21,7 +21,7 @@ const EducationCard: React.FC<EducationCardProps> = ({ iconSrc, headerText, subh
               className="w-[30px] h-[30px]"
             />
           </div>
-          <div className="flex flex-col justify-start text-start">
+          <div className="flex flex-col justify-start text-start mr-[16px]">
             <h1 className="text-heading-4">{headerText}</h1>
             <p className="text-subhead-2 mb-[40px]">{subheadText}</p>
           </div>

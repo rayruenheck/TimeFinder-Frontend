@@ -87,8 +87,8 @@ const TaskScreen: React.FC = () => {
   return (
     <div className="w-full flex flex-col justify-center items-center">
       <Header progressBarNumber={2} />
-      <h1 className='text-heading-2 mb-[16px] ml-[16px]'>What would you like to get done?</h1>
-      <p className="text-subhead-1 mb-[32px] ml-[16px]">List up to 3 tasks you want to complete. Use the concentration level to notate which tasks require more brain power. This will help us match those tasks to your peak productivity time.</p>
+      <h1 className='text-heading-2 mb-[16px] ml-[16px] mr-[16px]'>What would you like to get done?</h1>
+      <p className="text-subhead-1 mb-[32px] ml-[16px] mr-[16px]">List up to 3 tasks you want to complete. Use the concentration level to notate which tasks require more brain power. This will help us match those tasks to your peak productivity time.</p>
       {tasks.map((task, index) => (
         <Accordion key={task.id} title={`Task ${index + 1}`}>
           <div className="mb-4">

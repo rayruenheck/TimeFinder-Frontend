@@ -12,9 +12,9 @@ interface EducationCardProps {
   }
   
   const educationCards: EducationCardProps[] = [
-    { iconSrc: "/images/NotePencil.png", headerText: "list your tasks", subheadText: "Add everything you want to get done! Just a name and a few details, that's it." },
+    { iconSrc: "/images/NotePencil.png", headerText: "list your tasks", subheadText: "Add everything you want to get done! Just add a name and a few details, that's it." },
     { iconSrc: "/images/Funnel.png", headerText: "we sort your tasks", subheadText: "TimeFinder uses task details, such as priority and concentration required, to run the tasks through an algorithm to match the right task to the right time." },
-    { iconSrc: "/images/CalendarDots.png", headerText: "we schedule your tasks", subheadText: "TimeFinder uses task details, such as priority and concentration required, to run the tasks through an algorithm to match the right task to the right time." },
+    { iconSrc: "/images/CalendarDots.png", headerText: "we schedule your tasks", subheadText: "TimeFinder will add up to 5 tasks to your Google Calendar between 8am to 8pm, based on priority while reserving your peak productivity time for your high concentration tasks." },
     { iconSrc: "/images/BellRinging.png", headerText: "Confirm in the morning", subheadText: "To help you build good task management habits, TimeFinder will alert you at 8am every morning to view your auto-scheduled tasks for the day." },
     { iconSrc: "/images/ListChecks.png", headerText: "DO THE STUFF", subheadText: "Complete your scheduled tasks throughout the day. At any time, you can add more tasks to be scheduled for a later day." },
     { iconSrc: "/images/Medal.png", headerText: "Review in the evening", subheadText: "Just like in the morning, TimeFinder will alert you at 8pm to cross off your tasks and celebrate! Enjoy your accomplishments!" },
@@ -91,7 +91,7 @@ export default function Page() {
         <div className="text-center">
           <Header progressBarNumber={1} />
           <div className='w-full h-full flex flex-col justify-center items-center'>
-            <h1 className="text-heading-2 mb-[40px]">How does time finder work?</h1>
+            <h1 className="text-heading-2 mb-[40px]">How does timefinder work?</h1>
             {/* Map through educationCards array and render EducationCard for each item */}
             {educationCards.map(card => (
               <EducationCard key={card.iconSrc} iconSrc={card.iconSrc} headerText={card.headerText} subheadText={card.subheadText} />

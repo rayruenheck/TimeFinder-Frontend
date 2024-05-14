@@ -60,7 +60,6 @@ export default function Page() {
         style={{
           display: 'flex',
           width: '393px',
-          padding: '0 16px',
           flexDirection: 'column',
           alignItems: 'flex-start',
           gap: '16px',

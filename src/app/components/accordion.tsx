@@ -30,7 +30,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, children, defaultOpen = fa
           height={32}
         />
       </button>
-      {isOpen && <div className="py-8 px-4 bg-blue-100 outline-none">{children}</div>}
+      {isOpen && <div className="bg-blue-100 outline-none">{children}</div>}
     </div>
   );
 };
