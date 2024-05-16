@@ -70,6 +70,7 @@ export default function Page() {
             if (!updateCalled) {
                 setUpdateCalled(true);
                 scheduleNotifications()
+               
                 
                 
             }
