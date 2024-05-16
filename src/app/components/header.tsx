@@ -22,7 +22,7 @@ export default function Header({ progressBarNumber }: HeaderProps) {
       </div>
 
       {/* Progress Bar with justify-center */}
-      <div className="flex flex-col items-center mb-[40px]">
+      <div className={`flex flex-col items-center ${ progressBarNumber > 0 ? 'mb-[40px]' : ''}`}>
       {progressBarImage && (
         <Image
           src={progressBarImage}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Task } from './interfaces';
 
+
 type TaskCardProps = {
     task: Task;  // Define the type for props, indicating it expects an object with a 'task' property
 };
@@ -31,23 +32,46 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         });
     };
 
+    const formatTime = (dateString: string) => {
+        const date = new Date(dateString);
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = hours % 12 || 12; // Convert to 12-hour format and handle midnight
+        const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes; // Add leading zero to minutes if needed
+        return `${formattedHours}:${formattedMinutes} ${ampm}`;
+    };
+
     return (
-        <div className="border border-gray-300 rounded-lg p-4 m-4 w-64 shadow-sm">
-            <div className="flex items-center">
+        <div className="p-4  w-[380]">
+            <div className="flex justify-center items-center">
                 <input
                     type="checkbox"
                     checked={completed}
                     onChange={() => handleCheckboxChange(task.id, completed)}
-                    className="form-checkbox h-5 w-5 text-blue-600 mr-2"
+                    className={`custom-checkbox  ${
+                        completed ? 'checked' : ''
+                    }`}
                 />
-                <span className={`${completed ? 'line-through' : ''} flex-grow`}>{task.name}</span>
-            </div>
-            <div className="text-sm text-gray-700 mt-2">
-                <p>Priority: {task.priority}</p>
-                <p>Concentration: {task.concentration}</p>
+                <div className="flex-grow">
+                    <span className={`${completed ? 'line-through-black' : ''} button-3 ml-4 ${task.isScheduled ? "" : "text-black"}`}>
+                        {task.name}
+                    </span>
+                    {task.isScheduled ? 
+                    <div className="button-4 flex ml-4">
+                        <p>Priority: {task.priority}</p>
+                        <p className="ml-[16px]">Concentration: {task.concentration}</p>
+                    </div> : '' }
+                </div>
+                {task.start_time ? (
+                    <span className="time-pill">
+                        {formatTime(task.start_time)}
+                    </span>
+                ) : null}
             </div>
         </div>
     );
 };
 
 export default TaskCard;
+

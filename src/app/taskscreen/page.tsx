@@ -17,6 +17,8 @@ const TaskScreen: React.FC = () => {
     concentration: '',
     isCompleted: false,
     isScheduled: false,
+    start_time: '',
+    end_time: '',
     id: uuidv4(),
   }));
 
@@ -85,13 +87,13 @@ const TaskScreen: React.FC = () => {
 }, [session?.sub, tasks, router])
 
   return (
-    <div className="w-full flex flex-col justify-center items-center">
+    <div className="w-full flex flex-col ">
       <Header progressBarNumber={2} />
       <h1 className='text-heading-2 mb-[16px] ml-[16px] mr-[16px]'>What would you like to get done?</h1>
       <p className="text-subhead-1 mb-[32px] ml-[16px] mr-[16px]">List up to 3 tasks you want to complete. Use the concentration level to notate which tasks require more brain power. This will help us match those tasks to your peak productivity time.</p>
       {tasks.map((task, index) => (
         <Accordion key={task.id} title={`Task ${index + 1}`}>
-          <div className="mb-4">
+          <div className="mb-4 ml-4 mr-4">
             <label htmlFor={`taskName${index}`} className="mb-2 block truncate uppercase text-blackish font-gabarito text-sm font-semibold leading-normal">
               What task do you want to do?
             </label>
@@ -104,7 +106,7 @@ const TaskScreen: React.FC = () => {
               className="w-full  border-2 border-blackish bg-whiteish rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
             />
           </div>
-          <div className="flex justify-between gap-16 mb-4">
+          <div className="flex justify-between gap-16 mb-4 ml-4 mr-4">
             <div className="flex-1">
               <label htmlFor={`taskTime${index}`} className="mb-2 block truncate uppercase text-blackish font-gabarito text-sm font-semibold leading-normal">
                 Duration
@@ -130,7 +132,7 @@ const TaskScreen: React.FC = () => {
               />
             </div>
           </div>
-          <div>
+          <div className='ml-4 mr-4'>
             <label htmlFor={`taskConcentration${index}`} className="mb-2 block truncate uppercase text-blackish font-gabarito text-sm font-semibold leading-normal">
               Concentration required
             </label>

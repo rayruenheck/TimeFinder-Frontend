@@ -11,7 +11,7 @@
   /* Heading 2 */
   .text-heading-2 {
     color: var(--Green-100, #F1FF8D);
-    font-family: 'Gabarito', sans-serif;;
+    font-family: 'Gabarito', sans-serif;
     font-size: 32px;
     align-self: stretch;
     font-style: normal;
@@ -23,44 +23,61 @@
   /* Heading 3 */
   .text-heading-3 {
     color: #000;
-    font-family: 'Gabarito';
+    font-family: 'Gabarito', sans-serif;
     font-size: 20px;
     font-style: normal;
-    font-weight: 700;
-    line-height: 150% /* 30px */;
+    line-height: 150%;
     text-transform: uppercase;
   }
 
   /* Heading 4 */
   .text-heading-4 {
     color: var(--Green-100, #F1FF8D);
-
-font-family: Gabarito;
-font-size: 20px;
-font-style: normal;
-font-weight: 700;
-line-height: 150% /* 30px */;
-text-transform: uppercase;
+    font-family: 'Gabarito', sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;
+    text-transform: uppercase;
+  }
+  .text-heading-5 {
+  color: var(--Blackish, #1C1C1C);
+  font-family: 'Gabarito', sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+  align-self: stretch;
   }
 
   /* Subhead 1 */
   .text-subhead-1 {
     color: var(--Green-100, #F1FF8D);
-    font-family: Lato;
+    font-family: 'Lato',;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: 24px
+    line-height: 24px;
   }
 
   /* Subhead 2 */
   .text-subhead-2 {
     color: var(--Whiteish, #F9F5F2);
-font-family: regular;
-font-size: 14px;
-font-style: normal;
-font-weight: 400;
-line-height: 150% /* 21px */;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+  }
+  .text-subhead-3 {
+    color: var(--Blackish, #1C1C1C);
+  font-family: Lato;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150% /* 24px */;;
+  align-items: stretch
   }
 
   /* Body 1 */
@@ -90,7 +107,7 @@ line-height: 150% /* 21px */;
 
   /* Button 2 */
   .text-button-2 {
-    @apply text-[14px] font-gabarito font-semibold ;
+    @apply text-[14px] font-gabarito font-semibold;
   }
 
   /* Button 3 */
@@ -138,13 +155,155 @@ line-height: 150% /* 21px */;
     @apply opacity-50 cursor-not-allowed border-grey-500;
     background-color: var(--Whiteish, #F9F5F2);
   }
+
   .button-2 {
     color: var(--Whiteish, #F9F5F2);
     text-align: center;
-    font-family: Lato;
+    font-family: 'Lato', sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
   }
+
+  .button-3 {
+    color: var(--Whiteish, #F9F5F2);
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;
+  }
+
+  .button-4 {
+    color: var(--Whiteish, #F9F5F2);
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: 0.24px;
+  }
+
+  .time-pill {
+    display: inline-flex;
+    height: 24px;
+    padding: 4px;
+    justify-content: flex-end;
+    align-items: center;
+    border-radius: 4px;
+    background: var(--Blue-100, #C9DBFF);
+    color: var(--Blackish, #1C1C1C);
+    font-family: 'Gabarito', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+}
+
+.custom-checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border: 2px solid black;
+  width: 18px; 
+  height: 18px; 
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.custom-checkbox:checked {
+  background-color: #000;
+  border-color: #000;
+}
+
+.custom-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.line-through-black {
+  text-decoration: line-through;
+  text-decoration-color: black;
+  text-decoration-thickness: 3px;
+}
+
+/* Customize the calendar's appearance to look like Google Calendar */
+.fc {
+  font-family: 'Roboto', sans-serif;
+  background-color: white;
+}
+
+.fc .fc-daygrid-day {
+  border: 1px solid white;
+}
+
+.fc .fc-day-today {
+  background-color: white;
+}
+
+.fc .fc-event {
+  border: none !important;
+  background-color: transparent !important;
+}
+
+.custom-div {
+  width: full;
+  padding: 64px 10px;
+  border-top: 4px solid #000;
+  border-bottom: 4px solid #000;
+  background: var(--Green-100, #F1FF8D);
+}
+.custom-div-2 {
+  height: 386px;
+  padding: 64px 0;
+  background-color: #bfdbfe; /* Tailwind's bg-blue-100 color value */
+}
+.completed-this-week {
+  color: var(--Blackish, #1C1C1C);
+  font-family: 'Gabarito', sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150% /* 30px */;
+  text-transform: uppercase;
+}
+.completed-all-time {
+  color: var(--Blackish, #1C1C1C);
+  font-family: Lato;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150% /* 24px */;
+}
+.completed-this-week-number {
+  color: var(--Blackish, #1C1C1C);
+text-align: center;
+font-family: Gabarito;
+font-size: 50px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+letter-spacing: -1px;
+text-transform: uppercase;
+}
+.completed-all-time-number {
+  color: var(--Blackish, #1C1C1C);
+  font-family: Gabarito;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150% /* 30px */;
+  text-transform: uppercase;
 }

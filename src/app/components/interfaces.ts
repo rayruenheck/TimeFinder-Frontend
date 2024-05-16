@@ -56,6 +56,8 @@ export interface Task {
   concentration: string;
   isScheduled: boolean
   isCompleted: boolean
+  start_time: string
+  end_time: string
 }
 
 export interface ConcentrationTime {
