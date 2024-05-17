@@ -12,9 +12,9 @@ const TaskScreen: React.FC = () => {
   const { data: session } = useSession();
   const initialTasks: Task[] = new Array(3).fill(null).map(() => ({
     name: '',
-    time: '',
-    priority: '',
-    concentration: '',
+    time: '30',
+    priority: 'Low',
+    concentration: 'Low',
     isCompleted: false,
     isScheduled: false,
     start_time: '',

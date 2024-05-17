@@ -266,7 +266,6 @@
   background: var(--Green-100, #F1FF8D);
 }
 .custom-div-2 {
-  height: 386px;
   padding: 64px 0;
   background-color: #bfdbfe; /* Tailwind's bg-blue-100 color value */
 }

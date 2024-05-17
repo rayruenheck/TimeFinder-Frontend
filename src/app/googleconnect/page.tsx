@@ -41,6 +41,7 @@ export default function Page() {
         .then(response => response.json())
         .then(data => {
             console.log('Notifications scheduled:', data);
+            
 
         })
         .catch((error) => {
@@ -80,7 +81,9 @@ export default function Page() {
         });
     }, [session, updateCalled, scheduleNotifications]);
 
-    
+    const handleSignIn = () => {
+        signIn('google', { callbackUrl: '/taskscreen' });
+    };
 
     useEffect(() => {
         if (!updateCalled) {
@@ -97,7 +100,7 @@ export default function Page() {
             {educationCards.map(card => (
               <EducationCard key={card.iconSrc} iconSrc={card.iconSrc} headerText={card.headerText} subheadText={card.subheadText} />
             ))}
-            <button className="button-1 mb-[64px]" onClick={() => signIn('google')}>Create account with google</button>
+            <button className="button-1 mb-[64px]" onClick={handleSignIn}>Create account with google</button>
           </div>
         </div>
       );

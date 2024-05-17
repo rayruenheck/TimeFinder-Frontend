@@ -1,4 +1,5 @@
 "use client";
+import { signIn } from 'next-auth/react';
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Header from "./components/header";
@@ -8,6 +9,10 @@ import Header from "./components/header";
 export default function Home() {
   
     const router = useRouter();
+
+    const handleSignIn = async () => {
+      const result = await signIn('google', { callbackUrl: '/schedulepage' });
+  };
 
     return (
         <div className='mx-auto p-4 w-[393px]'>
@@ -19,7 +24,15 @@ export default function Home() {
            TimeFinder helps you complete your tasks by scheduling them for you. Matching tasks to open times and your peak concentration increases your success!
           </p>
           <button onClick={()=>{router.push('/googleconnect')}} className="button-1 mt-[40px]">get started</button>
-          <h3 className="button-2 mt-[16px]">Already have and account? Sign in here.</h3>
+          <h3 className="button-2 mt-[16px]">
+            Already have an account?{' '}
+            <span
+                onClick={handleSignIn}
+                style={{ cursor: 'pointer', textDecoration: 'underline', color: 'blue' }}
+            >
+                Sign in here
+            </span>.
+        </h3>
           </div>
         </div>
         
