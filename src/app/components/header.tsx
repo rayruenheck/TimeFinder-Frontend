@@ -18,6 +18,7 @@ export default function Header({ progressBarNumber }: HeaderProps) {
           width={193}
           height={16}
           className="object-contain mb-[16px]"
+          style={{ height: 'auto' }}
         />
       </div>
 

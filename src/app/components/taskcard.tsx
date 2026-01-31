@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { Task } from './interfaces';
 
-
 type TaskCardProps = {
-    task: Task;  // Define the type for props, indicating it expects an object with a 'task' property
+    task: Task;
 };
 
 const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
     const [completed, setCompleted] = useState(task.isCompleted);
+    const [isUpdating, setIsUpdating] = useState(false);
 
     const handleCheckboxChange = (id: string, isCompleted: boolean) => {
         const newCompletedStatus = !isCompleted;
-        fetch('https://timefinder-backend-2.onrender.com/update-completion', {
+        setIsUpdating(true);
+
+        fetch('http://127.0.0.1:5000/update-completion', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -21,7 +23,6 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         .then(response => response.json())
         .then(data => {
             if (data.status === "success") {
-                console.log('Update successful:', data.message);
                 setCompleted(newCompletedStatus);
             } else {
                 console.error('Failed to update task:', data.message);
@@ -29,6 +30,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         })
         .catch(error => {
             console.error('Failed to update task:', error);
+        })
+        .finally(() => {
+            setIsUpdating(false);
         });
     };
 
@@ -43,31 +47,38 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
     };
 
     return (
-        <div className="p-4  w-[380]">
-            <div className="flex justify-center items-center">
-                <input
-                    type="checkbox"
-                    checked={completed}
-                    onChange={() => handleCheckboxChange(task.id, completed)}
-                    className={`custom-checkbox  ${
-                        completed ? 'checked' : ''
-                    }`}
-                />
-                <div className="flex-grow">
-                    <span className={`${completed ? 'line-through-black' : ''} button-3 ml-4 ${task.isScheduled ? "" : "text-black"}`}>
-                        {task.name}
-                    </span>
-                    {task.isScheduled ? 
-                    <div className="button-4 flex ml-4">
-                        <p>Priority: {task.priority}</p>
-                        <p className="ml-[16px]">Concentration: {task.concentration}</p>
-                    </div> : '' }
+        <div className="p-4 w-full task-card animate-scale-in">
+            <div className={`flex justify-between items-center transition-opacity ${isUpdating ? 'opacity-50' : 'opacity-100'}`}>
+                <div className="flex items-center flex-grow">
+                    <input
+                        type="checkbox"
+                        checked={completed}
+                        onChange={() => handleCheckboxChange(task.id, completed)}
+                        disabled={isUpdating}
+                        className={`custom-checkbox transition-all ${completed ? 'checked' : ''}`}
+                        aria-label={`Mark ${task.name} as ${completed ? 'incomplete' : 'complete'}`}
+                    />
+                    <div className="flex-grow ml-4">
+                        <span className={`${completed ? 'line-through-black opacity-60' : ''} button-3 transition-all ${task.isScheduled ? "" : "text-black"}`}>
+                            {task.name}
+                        </span>
+                        {task.isScheduled && (
+                            <div className="button-4 flex gap-4 mt-1">
+                                <span className="inline-flex items-center">
+                                    <span className="font-semibold">Priority:</span> {task.priority}
+                                </span>
+                                <span className="inline-flex items-center">
+                                    <span className="font-semibold">Concentration:</span> {task.concentration}
+                                </span>
+                            </div>
+                        )}
+                    </div>
                 </div>
-                {task.start_time ? (
-                    <span className="time-pill">
+                {task.start_time && (
+                    <span className="time-pill whitespace-nowrap ml-4 transition-all hover-lift">
                         {formatTime(task.start_time)}
                     </span>
-                ) : null}
+                )}
             </div>
         </div>
     );

@@ -65,7 +65,7 @@ const TaskScreen: React.FC = () => {
 
   const handleSetTask = useCallback(() => {
     if (tasks) {
-        const tasksApiUrl = 'https://timefinder-backend-2.onrender.com/tasks';
+        const tasksApiUrl = 'http://127.0.0.1:5000/tasks';
         fetch(tasksApiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

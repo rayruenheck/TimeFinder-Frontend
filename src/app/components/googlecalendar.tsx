@@ -25,7 +25,7 @@ const GoogleCalendar = memo(() => {
   const fetchEvents = useCallback(async () => {
     if (!session?.accessToken || !session?.sub) return;
 
-    const response = await fetch(`https://timefinder-backend-2.onrender.com/user_calendar_events`, {
+    const response = await fetch(`http://127.0.0.1:5000/user_calendar_events`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

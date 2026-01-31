@@ -22,7 +22,7 @@ export default function Page() {
     async (userData: CustomSession, times: ConcentrationTime) => {
       if (session) {
         try {
-          const response = await fetch('https://timefinder-backend-2.onrender.com/concentration_time', {
+          const response = await fetch('http://127.0.0.1:5000/concentration_time', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

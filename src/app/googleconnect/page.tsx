@@ -30,7 +30,7 @@ export default function Page() {
     const router = useRouter();
 
     const scheduleNotifications = useCallback(() => {
-        const notificationsApiUrl = 'https://timefinder-backend-2.onrender.com/schedule_notifications';
+        const notificationsApiUrl = 'http://127.0.0.1:5000/schedule_notifications';
         fetch(notificationsApiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -50,8 +50,8 @@ export default function Page() {
     }, [session?.sub])
 
     const updateUser = useCallback(() => {
-        const apiUrl = 'https://timefinder-backend-2.onrender.com/users';
-    
+        const apiUrl = 'http://127.0.0.1:5000/users';
+
         fetch(apiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

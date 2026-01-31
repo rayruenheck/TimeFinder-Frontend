@@ -6,7 +6,7 @@ import { CustomSession, CustomJWT } from "./app/components/interfaces";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [GoogleProvider({
     clientId : process.env.AUTH_GOOGLE_ID!,
-    clientSecret : process.env. AUTH_GOOGLE_SECRET!,
+    clientSecret : process.env.AUTH_GOOGLE_SECRET!,
     authorization: {
       params: {
         scope: ['https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/calendar.events', 'openid','email', 'profile'].join(' '),
