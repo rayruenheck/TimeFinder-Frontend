@@ -30,8 +30,7 @@ export default function Page() {
     const router = useRouter();
 
     const scheduleNotifications = useCallback(() => {
-        const notificationsApiUrl = 'http://127.0.0.1:5000/schedule_notifications';
-        fetch(notificationsApiUrl, {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/schedule_notifications`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -41,7 +40,7 @@ export default function Page() {
         .then(response => response.json())
         .then(data => {
             console.log('Notifications scheduled:', data);
-            
+
 
         })
         .catch((error) => {
@@ -50,9 +49,7 @@ export default function Page() {
     }, [session?.sub])
 
     const updateUser = useCallback(() => {
-        const apiUrl = 'http://127.0.0.1:5000/users';
-
-        fetch(apiUrl, {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -71,9 +68,9 @@ export default function Page() {
             if (!updateCalled) {
                 setUpdateCalled(true);
                 scheduleNotifications()
-               
-                
-                
+
+
+
             }
         })
         .catch((error) => {

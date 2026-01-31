@@ -25,7 +25,7 @@ const GoogleCalendar = memo(() => {
   const fetchEvents = useCallback(async () => {
     if (!session?.accessToken || !session?.sub) return;
 
-    const response = await fetch(`http://127.0.0.1:5000/user_calendar_events`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user_calendar_events`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const GoogleCalendar = memo(() => {
       const fetchedEvents: any[] = await response.json();
       const formattedEvents: Event[] = fetchedEvents.map(event => ({
         title: event.summary,
-        start: event.start.dateTime || event.start.date, 
+        start: event.start.dateTime || event.start.date,
         end: event.end.dateTime || event.end.date
       }));
       setEvents(formattedEvents);

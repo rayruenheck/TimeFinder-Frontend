@@ -14,14 +14,14 @@ export default function Page() {
     const fetchScheduledTasks = useCallback(async () => {
         if (session?.accessToken && session?.sub && !tasksFetched) {
             try {
-                const response = await fetch('http://127.0.0.1:5000/schedule_tasks', {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/schedule_tasks`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${session?.accessToken}`
                     },
                     body: JSON.stringify({
-                        sub: session?.sub 
+                        sub: session?.sub
                     })
                 });
                 const data = await response.json();

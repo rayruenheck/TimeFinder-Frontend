@@ -32,7 +32,7 @@ export default function Page() {
 
     useEffect(() => {
         if (session?.sub) {
-            fetch(`http://127.0.0.1:5000/get-tasks?sub=${session.sub}`)
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}/get-tasks?sub=${session.sub}`)
                 .then(response => response.json())
                 .then(data => {
                     setTasks(data.tasks);
@@ -47,7 +47,7 @@ export default function Page() {
 
     const handleAddTask = () => {
         if (session?.sub) {
-            fetch('http://127.0.0.1:5000/add-task', {
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}/add-task`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

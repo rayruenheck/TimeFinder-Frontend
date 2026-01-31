@@ -65,8 +65,7 @@ const TaskScreen: React.FC = () => {
 
   const handleSetTask = useCallback(() => {
     if (tasks) {
-        const tasksApiUrl = 'http://127.0.0.1:5000/tasks';
-        fetch(tasksApiUrl, {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -78,12 +77,12 @@ const TaskScreen: React.FC = () => {
         .then(data => {
             console.log('Tasks updated:', data);
             router.push('/concentrationselector')
-            
+
         })
         .catch((error) => {
             console.error('Error updating tasks:', error);
         });
-    } 
+    }
 }, [session?.sub, tasks, router])
 
   return (

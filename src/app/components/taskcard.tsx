@@ -13,7 +13,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         const newCompletedStatus = !isCompleted;
         setIsUpdating(true);
 
-        fetch('http://127.0.0.1:5000/update-completion', {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/update-completion`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
